@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity {
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     private final LatLng mDestinationLatLng = new LatLng(43.0754097,-89.4036975);
     private static LatLng mCurrentLocation;
-    private GoogleMap mMap;
+    private static GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     LocationListener locationListener;
 
