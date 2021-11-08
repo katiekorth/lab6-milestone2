@@ -57,6 +57,15 @@ public class MainActivity extends FragmentActivity {
                     mMap.addPolyline(new PolylineOptions().add(
                             new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()),
                             mDestinationLatLng));
+
+                    LatLng mCurrentLocation = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+
+                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
+                    mapFragment.getMapAsync(googleMap -> {
+                        mMap = googleMap;
+                        googleMap.addMarker(new MarkerOptions().position(mCurrentLocation).title("My current location"));
+                        displayMyLocation();
+                    });
                 }
             });
         }
