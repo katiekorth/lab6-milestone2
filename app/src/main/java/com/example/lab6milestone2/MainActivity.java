@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -37,14 +38,6 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                updateLocationInfo(location);
-            }
-        };
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
         mapFragment.getMapAsync(googleMap -> {
             mMap = googleMap;
@@ -53,11 +46,6 @@ public class MainActivity extends FragmentActivity {
         });
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-    }
-
-    public void updateLocationInfo(Location location) {
-        mCurrentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        displayMyLocation();
     }
 
     private void displayMyLocation() {
@@ -75,6 +63,7 @@ public class MainActivity extends FragmentActivity {
                             new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()),
                             mDestinationLatLng));
 
+                    Log.println(Log.DEBUG, Double.toString(mLastKnownLocation.getLatitude()), Double.toString(mLastKnownLocation.getLongitude()));
                     mCurrentLocation = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
 
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
